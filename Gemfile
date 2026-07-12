@@ -31,6 +31,7 @@ gem 'httparty'
 gem 'ruby-vips'
 
 group :development, :test do
+  gem 'brakeman', require: false
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'rspec-rails'
