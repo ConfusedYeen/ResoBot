@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+ruby '4.0.5'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 8.0.3'
 # Use the Puma web server [https://github.com/puma/puma]
