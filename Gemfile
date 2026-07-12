@@ -26,8 +26,12 @@ gem 'thruster', require: false
 
 gem 'grape'
 gem 'grape-entity' # optional, for response serialization
+gem 'httparty'
+gem 'ruby-vips'
 
 group :development, :test do
+  gem 'byebug'
+  gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
