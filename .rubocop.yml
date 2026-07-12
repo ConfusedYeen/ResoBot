@@ -13,3 +13,6 @@ AllCops:
 
 Rails/ApplicationRecord:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 25
