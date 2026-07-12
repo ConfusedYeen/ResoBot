@@ -11,8 +11,7 @@ class Resdb
     TELEGRAM_MESSAGE_THREAD_ID = ENV.fetch('TELEGRAM_MESSAGE_THREAD_ID', nil)
     TELEGRAM_BOT_TOKEN = ENV.fetch('TELEGRAM_BOT_TOKEN')
 
-    def call(params) # rubocop:disable Metrics/MethodLength
-      byebug
+    def call(params)
       resdb_url = parse_url(params[:url])
       return { error: 'Invalid URL' } unless resdb_url
 
@@ -92,8 +91,7 @@ class Resdb
 
       { status: 'ok', message: 'Asset sent to telegram successfuwully' }
     rescue StandardError => e
-      byebug
-      return { error: "Failed to send to telegram, message: #{e.message}" }
+      { error: "Failed to send to telegram, message: #{e.message}" }
     end
 
     def generate_caption(params)

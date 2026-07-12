@@ -16,3 +16,6 @@ Rails/ApplicationRecord:
 
 RSpec/ExampleLength:
   Max: 25
+
+Metrics/MethodLength:
+  Max: 25
