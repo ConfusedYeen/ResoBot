@@ -4,6 +4,10 @@ API service that accepts Resonite `resdb://` asset URLs, downloads the image fro
 
 Built with **Rails 8** (API-only) and **Grape**.
 
+## TODO
+
+Provide a link to the Resonite asset that includes all the protoflux needed for Resobot to work.
+
 ## Requirements
 
 - Ruby **4.0.5** (see `.ruby-version`)
@@ -40,8 +44,7 @@ Edit `.env` with your Telegram bot credentials:
 ```bash
 bin/rails server
 ```
-
-or simply 
+Or, simply 
 ```bash
 bin/rails s
 ```
@@ -69,7 +72,7 @@ Smoke test for the Resdb mount.
 ### `POST /resobot/resdb/image`
 
 Submit a Resonite asset for processing.
-For now Resobot only works with images, other asset types support may come in the future.
+For now, Resobot only works with images. Support for other asset types is planned, but there's no ETA yet.
 
 **Parameters**
 
@@ -132,7 +135,7 @@ bin/brakeman
 
 ## Deployment
 
-Docker and [Kamal](https://kamal-deploy.org) are configured. The production image includes `libvips42`.
+Docker and [Kamal](https://kamal-deploy.org) are configured, but **not** tested personally. The production image includes `libvips42`.
 
 ```bash
 docker build -t resobot .
