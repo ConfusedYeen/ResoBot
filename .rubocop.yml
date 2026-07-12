@@ -15,4 +15,4 @@ Rails/ApplicationRecord:
   Enabled: false
 
 RSpec/ExampleLength:
-  Max: 15
+  Max: 25
