@@ -8,9 +8,10 @@ class Resdb
     RESO_ASSETS_URL = ENV.fetch('RESO_ASSETS_URL', 'https://assets.resonite.com')
     TELEGRAM_API_URL = ENV.fetch('TELEGRAM_API_URL', 'https://api.telegram.org/bot')
     TELEGRAM_CHAT_ID = ENV.fetch('TELEGRAM_CHAT_ID')
+    TELEGRAM_MESSAGE_THREAD_ID = ENV.fetch('TELEGRAM_MESSAGE_THREAD_ID', nil)
     TELEGRAM_BOT_TOKEN = ENV.fetch('TELEGRAM_BOT_TOKEN')
 
-    def call(params) # rubocop:disable Metrics/MethodLength
+    def call(params)
       resdb_url = parse_url(params[:url])
       return { error: 'Invalid URL' } unless resdb_url
 
@@ -60,6 +61,7 @@ class Resdb
       telegram_post(
         'sendPhoto',
         chat_id: TELEGRAM_CHAT_ID,
+        message_thread_id: TELEGRAM_MESSAGE_THREAD_ID,
         photo: asset,
         caption: generate_caption(params)
       )
@@ -70,6 +72,7 @@ class Resdb
       telegram_post(
         'sendDocument',
         chat_id: TELEGRAM_CHAT_ID,
+        message_thread_id: TELEGRAM_MESSAGE_THREAD_ID,
         document: asset,
         caption: 'Original document'
       )
@@ -87,6 +90,8 @@ class Resdb
       end
 
       { status: 'ok', message: 'Asset sent to telegram successfuwully' }
+    rescue StandardError => e
+      { error: "Failed to send to telegram, message: #{e.message}" }
     end
 
     def generate_caption(params)
