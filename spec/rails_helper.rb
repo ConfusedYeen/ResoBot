@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
+ENV['TELEGRAM_CHAT_ID'] ||= 'test_chat_id'
+ENV['TELEGRAM_BOT_TOKEN'] ||= 'test_bot_token'
+ENV['TELEGRAM_API_URL'] ||= 'https://api.telegram.org/bot'
+ENV['RESO_ASSETS_URL'] ||= 'https://assets.resonite.com'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
@@ -21,8 +24,8 @@ require 'rspec/rails'
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
-#
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 RSpec.configure do |config|
   # Remove this line to enable support for ActiveRecord
