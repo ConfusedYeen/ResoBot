@@ -18,5 +18,8 @@ class Resdb < Grape::API
     post :image do
       Resdb::ProcessImage.new.call(declared(params))
     end
+    post :document do
+      Resdb::ProcessDocument.new.call(declared(params))
+    end
   end
 end
