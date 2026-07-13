@@ -16,7 +16,7 @@ class Resdb < Grape::API
       optional :location, type: String, desc: 'Instance name'
     end
     post :image do
-      Resdb::Process.new.call(declared(params))
+      Resdb::ProcessImage.new.call(declared(params))
     end
   end
 end

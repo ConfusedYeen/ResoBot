@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Resdb::Process do
+RSpec.describe Resdb::ProcessImage do
   subject(:processor) { described_class.new.call(params) }
 
   let(:asset_id) { SecureRandom.uuid }
@@ -14,7 +14,7 @@ RSpec.describe Resdb::Process do
     }
   end
   let(:asset_url) do
-    "#{described_class::RESO_ASSETS_URL}/#{asset_id}"
+    "https://assets.resonite.com/#{asset_id}"
   end
   let(:image_body) { File.binread(ImageFixtures.path_for('small.png')) }
   let(:telegram_success) do
@@ -27,7 +27,12 @@ RSpec.describe Resdb::Process do
 
   before do
     allow(HTTParty).to receive(:get).with(asset_url).and_return(
-      instance_double(HTTParty::Response, success?: true, body: image_body)
+      instance_double(
+        HTTParty::Response,
+        success?: true,
+        body: image_body,
+        headers: { 'content-type' => 'image/png' }
+      )
     )
     allow(HTTParty).to receive(:post).and_return(telegram_success)
   end
@@ -41,7 +46,12 @@ RSpec.describe Resdb::Process do
 
     it 'returns an error when the asset download fails' do
       allow(HTTParty).to receive(:get).with(asset_url).and_return(
-        instance_double(HTTParty::Response, success?: false, body: '')
+        instance_double(
+          HTTParty::Response,
+          success?: false,
+          body: '',
+          headers: {}
+        )
       )
 
       expect(processor).to eq({ error: 'Failed to download asset' })
@@ -60,7 +70,7 @@ RSpec.describe Resdb::Process do
         )
       )
 
-      expect(processor[:error]).to include('Failed to send to telegram')
+      expect(processor[:error]).to include('Failed to send message to telegram')
       expect(processor[:error]).to include('chat not found')
     end
 
@@ -69,8 +79,8 @@ RSpec.describe Resdb::Process do
         .to eq(
           {
             status: 'ok',
-            photo: { message: 'Asset sent to telegram successfuwully', status: 'ok' },
-            document: { message: 'Asset sent to telegram successfuwully', status: 'ok' }
+            photo: { message: 'Asset sent to telegram successfully', status: 'ok' },
+            document: { message: 'Asset sent to telegram successfully', status: 'ok' }
           }
         )
 
@@ -91,7 +101,10 @@ RSpec.describe Resdb::Process do
         a_string_including('/sendPhoto'),
         hash_including(
           body: hash_including(
-            caption: a_string_including(params[:name], params[:datetime])
+            caption: a_string_including(
+              params[:name],
+              DateTime.parse(params[:datetime]).strftime('%Y-%m-%d %H:%M')
+            )
           )
         )
       )
