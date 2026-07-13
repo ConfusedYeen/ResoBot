@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
+# Resdb related operations
 class Resdb
   # Processes incoming ResDB image submissions.
   class ProcessImage
-    include HTTParty
-
     TELEGRAM_CHAT_ID = ENV.fetch('TELEGRAM_CHAT_ID', nil)
     TELEGRAM_MESSAGE_THREAD_ID = ENV.fetch('TELEGRAM_MESSAGE_THREAD_ID', nil)
 
