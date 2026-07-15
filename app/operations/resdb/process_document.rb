@@ -24,20 +24,20 @@ class Resdb
         document: document_response
       }
     end
-  end
 
-  private
+    private
 
-  def send_document(asset)
-    Telegram::SendMessageToAPI.new.call(
-      'sendDocument',
-      {
-        chat_id: TELEGRAM_CHAT_ID,
-        message_thread_id: TELEGRAM_MESSAGE_THREAD_ID,
-        document: asset,
-        caption: "Here's your document! uwu"
-      },
-      :post
-    )
+    def send_document(asset)
+      Telegram::SendMessageToAPI.new.call(
+        'sendDocument',
+        {
+          chat_id: TELEGRAM_CHAT_ID,
+          message_thread_id: TELEGRAM_MESSAGE_THREAD_ID,
+          document: asset,
+          caption: "Here's your document! uwu"
+        },
+        :post
+      )
+    end
   end
 end
