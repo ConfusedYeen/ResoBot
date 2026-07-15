@@ -18,6 +18,13 @@ class Resdb < Grape::API
     post :image do
       Resdb::ProcessImage.new.call(declared(params))
     end
+
+    params do
+      requires :url, type: String, desc: 'Asset URL'
+      optional :name, type: String, desc: 'User Name'
+      optional :datetime, type: String, desc: 'Initial send Datetime'
+      optional :location, type: String, desc: 'Instance name'
+    end
     post :document do
       Resdb::ProcessDocument.new.call(declared(params))
     end
