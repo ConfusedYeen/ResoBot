@@ -19,3 +19,12 @@ RSpec/ExampleLength:
 
 Metrics/MethodLength:
   Max: 25
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 25
+
+Metrics/CyclomaticComplexity:
+  Max: 10
